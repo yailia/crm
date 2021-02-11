@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="main.js"></script>
+  <title>SlbxCRM</title>
+</head>
+<body>
+  
+  <!-- <div class="js_modal modal">
+    <h2 class="modal__title">
+      Новый клиент
+      <span class="modal__id">ID: 12345</span>
+    </h2>
+    
+    <button class="modal__close-btn"></button>
+    <form class="modal__form" method="post">
+    <div class="modal__main-wrp">
+        <label class="modal__label">
+          <input type="text" class="modal__input" placeholder="">
+        </label>
+        <input type="text" class="modal__input" placeholder="Имя*">
+        <input type="text" class="modal__input" placeholder="Отчество">
+    </div>
+      <div class="modal__more-contact-wrp contacts-form">
+        <div class="contacts-form__input-wrp">
+          <select class="contacts-form__select" name="" id="">
+            <option value="Телефон">Телефон</option>
+            <option value="Доп. телефон">Доп. телефон</option>
+            <option value="Vk">Vk</option>
+            <option value="Facebook">Facebook</option>
+          </select>
+          <input class="contacts-form__input" type="text" placeholder="Введите данные контакта">
+          <button class="contacts-form__delete-btn"></button>
+        </div>
+        <button class="modal__more-contact">Добавить контакт</button>
+      </div>
+      <button class="modal__main-btn main-btn">
+        <span class="main-btn__spinner closed"></span>
+        Сохранить
+      </button>
+      <button class="modal__outline-btn">Отмена</button>
+    </form>
+  </div>
+  <div class="main__overlay js_main__overlay closed"></div> -->
+  
+  <header class="header">
+    <a href="" class="logo header__logo">
+      <img src="img/sklb_logo.png" alt="логотип" class="logo__img">
+    </a>
+    <input class="header__input input" type="text" placeholder="Введите запрос">
+  </header>
+  
+  <main class="main container">
+    <h1 class="title main__title">
+      Клиенты
+    </h1>
+    <div class="main__table-wrp">
+      <div class="main__start-modal closed js_table-modal">
+        <div class="main__spinner closed js_table-spiner"></div>
+      </div>
+      <table class="main__table table">
+        <colgroup>
+          <col width ="65px">
+          <col>
+          <col width ="140px">
+          <col width ="140px">
+          <col width ="140px">
+          <col>
+          <col>
+        </colgroup>
+        <thead class="table__thead">
+          <th class="table__th">ID
+            <button class="table__arrow-btn" aria-label="управления сортировкой"></button>
+          </th>
+          <th class="table__th">Фамилия Имя Отчество
+            <button class="table__arrow-btn table__arrow-btn--letters" aria-label="управления сортировкой">А-Я</button>
+          </th>
+          <th class="table__th">Дата и время создания
+            <button class="table__arrow-btn" aria-label="управления сортировкой"></button>
+          </th>
+          <th class="table__th">Последние изменения
+            <button class="table__arrow-btn" aria-label="управления сортировкой"></button>
+          </th>
+          <th class="table__th">Контакты</th>
+          <th colspan="2" class="table__th">Действия</th>
+        </thead>
+        <tbody class="table__tbody">
+          <!-- <tr class="table__tr">
+            <td class="table__td table__td--id">12345</td>
+            <td class="table__td">Скворцов Денис Юрьевич</td>
+            <td class="table__td table__td--time">21.02.21 
+              <span class="table__time-span">12:41</span> 
+            </td>
+            <td class="table__td table__td--time">21.02.21 
+              <span class="table__time-span">12:41</span> 
+            </td>
+            <td class="table__td">
+              <span class="table__contact-badge table__contact-badge--vk"></span>
+              <span class="table__contact-badge table__contact-badge--facebook"></span> 
+              <span class="table__contact-badge table__contact-badge--phone"></span> 
+              <span class="table__contact-badge table__contact-badge--email"></span> 
+              <span class="table__contact-badge table__contact-badge--num"></span>
+            </td>
+            <td class="table__td table__td--action">
+            <button class="table__action-btn table__action-btn--change">Изменить</button>
+            </td>
+            <td class="table__td table__td--action">
+            <button class="table__action-btn table__action-btn--remove">Удалить</button>
+            </td>
+          </tr> -->
+        </tbody>
+      </table>
+    </div>
+      <!-- <button class="main__submit-btn js_addClienBtn">Добавить клиента</button> -->
+  </main>
+</body>
+</html>
