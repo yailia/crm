@@ -50,11 +50,22 @@ const client = {
 const searchValue = 'abcdefGHijKLmnOPqrstuvwxyz';
 const searchQuery = 'ghIJklmnopqr';
 
+function autoData(from) {
+  return ['id', 'createdAt', 'updatedAt']
+    .reduce((obj, prop) => ({ ...obj, [prop]: from[prop] }), {});
+}
+
+function waitASecond() {
+  return new Promise(resolve => {
+    setTimeout(resolve, 1000);
+  });
+}
+
 describe('Clients API', () => {
   it('POST /api/clients should create new user with 201 status', async () => {
     const res = await axios.post('', client);
     expect(res.status).toBe(201);
-    expect(res.data).toEqual({ ...client, id: res.data.id });
+    expect(res.data).toEqual({ ...client, ...autoData(res.data) });
     expect(res.headers.location).toEqual(`/api/clients/${res.data.id}`);
   });
 
@@ -118,7 +129,7 @@ describe('Clients API', () => {
     const { data: { id } } = await axios.post('', client);
     const res = await axios.get(id);
     expect(res.status).toBe(200);
-    expect(res.data).toEqual({ ...client, id });
+    expect(res.data).toEqual({ ...client, ...autoData(res.data) });
   });
 
   it('GET /api/clients/{id} should fail with 404 status for inexistent client ID', async () => {
@@ -127,19 +138,25 @@ describe('Clients API', () => {
   });
 
   it('PATCH /api/clients/{id} should partially update a client with 200 status', async () => {
-    const { data: { id } } = await axios.post('', client);
+    const { data: original } = await axios.post('', client);
 
     const name = 'New name';
     const surname = 'New surname';
     const contacts = [{ type: 'New contact', value: 'Something' }];
 
-    const res1 = await axios.patch(id, { name, surname });
+    await waitASecond();
+    const res1 = await axios.patch(original.id, { name, surname });
     expect(res1.status).toBe(200);
-    expect(res1.data).toEqual({ ...client, id, name, surname });
+    expect(res1.data).toEqual({ ...client, ...autoData(res1.data), name, surname });
+    expect(res1.data.createdAt === original.createdAt).toBe(true);
+    expect(res1.data.updatedAt > original.updatedAt).toBe(true);
 
-    const res2 = await axios.patch(id, { contacts });
+    await waitASecond();
+    const res2 = await axios.patch(original.id, { contacts });
     expect(res2.status).toBe(200);
-    expect(res2.data).toEqual({ ...client, id, name, surname, contacts });
+    expect(res2.data).toEqual({ ...client, ...autoData(res2.data), name, surname, contacts });
+    expect(res2.data.createdAt === original.createdAt).toBe(true);
+    expect(res2.data.updatedAt > res1.data.updatedAt).toBe(true);
   });
 
   it('PATCH /api/clients/{id} should return error descriptions with 422 status on validation error', async () => {

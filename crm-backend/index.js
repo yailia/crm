@@ -100,11 +100,12 @@ function getClientList(params = {}) {
  * Создаёт и сохраняет клиента в базу данных
  * @throws {ApiError} Некорректные данные в аргументе, клиент не создан (statusCode 422)
  * @param {Object} data - Данные из тела запроса
- * @returns {{ id: string, name: string, surname: string, lastName: string, contacts: object[] }} Объект клиента
+ * @returns {{ id: string, name: string, surname: string, lastName: string, contacts: object[], createdAt: string, updatedAt: string }} Объект клиента
  */
 function createClient(data) {
   const newItem = makeClientFromData(data);
   newItem.id = Date.now().toString();
+  newItem.createdAt = newItem.updatedAt = new Date().toISOString();
   writeFileSync(DB_FILE, JSON.stringify([...getClientList(), newItem]), { encoding: 'utf8' });
   return newItem;
 }
@@ -113,7 +114,7 @@ function createClient(data) {
  * Возвращает объект клиента по его ID
  * @param {string} itemId - ID клиента
  * @throws {ApiError} Клиент с таким ID не найден (statusCode 404)
- * @returns {{ id: string, name: string, surname: string, lastName: string, contacts: object[] }} Объект клиента
+ * @returns {{ id: string, name: string, surname: string, lastName: string, contacts: object[], createdAt: string, updatedAt: string }} Объект клиента
  */
 function getClient(itemId) {
   const client = getClientList().find(({ id }) => id === itemId);
@@ -127,13 +128,14 @@ function getClient(itemId) {
  * @param {{ name?: string, surname?: string, lastName?: string, contacts?: object[] }} data - Объект с изменяемыми данными
  * @throws {ApiError} Клиент с таким ID не найден (statusCode 404)
  * @throws {ApiError} Некорректные данные в аргументе (statusCode 422)
- * @returns {{ id: string, name: string, surname: string, lastName: string, contacts: object[] }} Объект клиента
+ * @returns {{ id: string, name: string, surname: string, lastName: string, contacts: object[], createdAt: string, updatedAt: string }} Объект клиента
  */
 function updateClient(itemId, data) {
   const clients = getClientList();
   const itemIndex = clients.findIndex(({ id }) => id === itemId);
   if (itemIndex === -1) throw new ApiError(404, { message: 'Client Not Found' });
   Object.assign(clients[itemIndex], makeClientFromData({ ...clients[itemIndex], ...data }));
+  clients[itemIndex].updatedAt = new Date().toISOString();
   writeFileSync(DB_FILE, JSON.stringify(clients), { encoding: 'utf8' });
   return clients[itemIndex];
 }
