@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
-  <script defer src="main.js"></script>
+  <script type="module" defer src="index.js"></script>
   <title>SlbxCRM</title>
 </head>
 <body>
@@ -72,20 +72,23 @@
           <col>
         </colgroup>
         <thead class="table__thead">
-          <th class="table__th">ID
-            <button class="table__arrow-btn" aria-label="управления сортировкой"></button>
-          </th>
-          <th class="table__th">Фамилия Имя Отчество
-            <button class="table__arrow-btn table__arrow-btn--letters" aria-label="управления сортировкой">А-Я</button>
-          </th>
-          <th class="table__th">Дата и время создания
-            <button class="table__arrow-btn" aria-label="управления сортировкой"></button>
-          </th>
-          <th class="table__th">Последние изменения
-            <button class="table__arrow-btn" aria-label="управления сортировкой"></button>
-          </th>
-          <th class="table__th">Контакты</th>
-          <th colspan="2" class="table__th">Действия</th>
+          <tr>
+            <th class="table__th">ID
+              <button class="table__arrow-btn table__arrow-btn--id rotate" aria-label="управления сортировкой"></button>
+            </th>
+            <th class="table__th">Фамилия Имя Отчество
+              <button class="table__arrow-btn table__arrow-btn--letters" aria-label="управления сортировкой"></button>
+              <span class="table__sort-letters">А-Я</span>
+            </th>
+            <th class="table__th">Дата и время создания
+              <button class="table__arrow-btn table__arrow-btn--create" aria-label="управления сортировкой"></button>
+            </th>
+            <th class="table__th">Последние изменения
+              <button class="table__arrow-btn table__arrow-btn--change" aria-label="управления сортировкой"></button>
+            </th>
+            <th class="table__th">Контакты</th>
+            <th colspan="2" class="table__th">Действия</th>
+          </tr>
         </thead>
         <tbody class="table__tbody">
           <!-- <tr class="table__tr">

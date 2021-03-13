@@ -35,6 +35,7 @@ h1, h2, p {
   --black-color: #333333;
   --firm-color: #9873FF;
   --text-grey: #B0B0B0;
+  --duration: 300ms;
 
 
 }
@@ -114,22 +115,21 @@ img {
   font-weight: 400;
   text-align: left;
   color: var(--text-grey);
+  white-space: nowrap;
 }
 
 .table__arrow-btn {
   width: 12px;
   height: 12px;
   border: none;
-  background: transparent url("/crm-frontend/img/arrow.svg") no-repeat center;
+  background: transparent url("img/arrow.svg") no-repeat center;
   cursor: pointer;
 }
 
-.table__arrow-btn--letters {
-  padding-left: 10px;
+.table__sort-letters {
   white-space: nowrap;
   font-size: 10px;
   font-weight: 400;
-  background-position-x: left;
   color: var(--firm-color);
 }
 
@@ -149,23 +149,89 @@ img {
 }
 
 .table__time-span {
+  margin-left: 5px;
   color: var(--text-grey);
 }
 
+.table__tooltip-wrp {
+  margin-right: 2px;
+  position: relative;
+  border-color: transparent;
+  z-index: 5;
+}
+
+.table__tooltip {
+  position: absolute;
+  padding: 7px;
+  bottom: 140%;
+  left: 50%;
+  min-width: max-content;
+  transform: translateX(-50%);
+  background-color: var(--black-color);
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 300ms ease-in-out;
+}
+
+.fetch__alert {
+  align-self: center;
+}
+
+.table__tooltip:before {
+  content: "";
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 10px 7.5px 0 7.5px;
+  border-color: var(--black-color) transparent transparent transparent;
+}
+
+.table__tooltip-link{
+  color: var(--white-color);
+}
+
 .table__contact-badge {
-  display: inline-block;
   width: 16px;
   height: 16px;
+  background-color: transparent;
   background-position: center;
   background-repeat: no-repeat;
+  border: none;
   font-size: 8px;
   opacity: 0.7;
   transition: opacity 300ms ease-in-out;
+  z-index: 10;
 }
 
 .table__contact-badge:hover {
   opacity: 1;
 }
+.table__contact-badge:active {
+  opacity: 1;
+}
+.table__contact-badge:focus {
+  opacity: 1;
+}
+
+.table__tooltip-wrp:hover .table__tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.table__contact-badge:focus + .table__tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.table__contact-badge:active + .table__tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
 
 .table__contact-badge--num {
   position: relative;
@@ -182,23 +248,28 @@ img {
 }
 
 .table__contact-badge--vk {
-    background-image: url(/crm-frontend/img/vk.svg)
+    background-image: url(img/vk.svg)
 }
 .table__contact-badge--facebook {
-    background-image: url(/crm-frontend/img/fb.svg)
+    background-image: url(img/fb.svg)
 }
 .table__contact-badge--phone {
-    background-image: url(/crm-frontend/img/phone.svg)
+    background-image: url(img/phone.svg)
 }
 .table__contact-badge--email {
-    background-image: url(/crm-frontend/img/mail.svg)
+    background-image: url(img/mail.svg)
 }
 .table__contact-badge--other {
-    background-image: url(/crm-frontend/img/other.svg)
+    background-image: url(img/other.svg)
 }
 
 .table__td--action {
-  padding: 0;
+  padding: 0 0.5rem;
+}
+
+.rotate {
+  transform: rotateX(180deg);
+  transition: rotate var(--duration) ease-in-out;
 }
 
 .table__action-btn {
@@ -216,7 +287,7 @@ img {
   margin-right: 1px;
   width: 16px;
   height: 16px;
-  background-image: url(/crm-frontend/img/edit_btn.svg);
+  background-image: url(img/edit_btn.svg);
   
 }
 
@@ -225,7 +296,7 @@ img {
   margin-right: 1px;
   width: 16px;
   height: 16px;
-  background-image: url(/crm-frontend/img/cancel_btn.svg);
+  background-image: url(img/cancel_btn.svg);
 }
 
 .main__submit-btn {
@@ -233,7 +304,7 @@ img {
   margin: 0 auto;
   width: 216px;
   color: var(--firm-color);
-  background: transparent url("/crm-frontend/img/add_btn.svg") no-repeat 30px 12px;
+  background: transparent url("img/add_btn.svg") no-repeat 30px 12px;
   border: 1px solid var(--firm-color);
   cursor: pointer;
 }
@@ -271,8 +342,9 @@ img {
 .modal {
   padding: 10px 0;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   width: 450px;
+  max-height: 80vh;
   position: fixed;
   z-index: 100;
   left: 50%;
@@ -286,21 +358,34 @@ img {
   overflow-x: hidden;
 }
 
+.modal--del {
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+}
+
 .modal__main-wrp {
   padding: 30px 30px 0;
   margin-bottom: 25px;
 }
 
+.description {
+  align-self: center;
+  width: 275px;
+  margin-bottom: 25px;
+  margin-top: 15px;
+}
+
 .closed {
-    position: absolute!important;
-    clip: rect(1px 1px 1px 1px);
-    clip: rect(1px,1px,1px,1px);
-    padding: 0!important;
-    border: 0!important;
-    height: 1px!important;
-    width: 1px!important;
-    overflow: hidden;
-    opacity: 0;
+  position: absolute!important;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px,1px,1px,1px);
+  padding: 0!important;
+  border: 0!important;
+  height: 1px!important;
+  width: 1px!important;
+  overflow: hidden;
+  opacity: 0;
 }
 
 .main__overlay {
@@ -318,14 +403,17 @@ img {
 }
 
 .modal__close-btn {
-  position: absolute;
+  margin-right: 15px;
+  align-self: flex-end;
+  padding: 7.5px;
+  position: sticky;
   width: 15px;
   height: 15px;
   top: 15px;
-  right: 15px;
-  background: transparent url(/crm-frontend/img/modal_close.svg) no-repeat center;
+  background: transparent url(img/modal_close.svg) no-repeat center;
   border: none;
   cursor: pointer;
+  z-index: 1000;
 }
 
 .modal__title {
@@ -365,7 +453,7 @@ color: var(--text-grey);
   border: none;
   z-index: 100;
   font-weight: 600;
-  background: transparent url("/crm-frontend/img/add_more.svg") no-repeat left 45%;
+  background: transparent url("img/add_more.svg") no-repeat left 45%;
   cursor: pointer;
 }
 
@@ -392,6 +480,7 @@ color: var(--text-grey);
 
 .contacts-form__select {
   padding-left: 10px;
+  min-width: 123px;
   height: 40px;
   border-color: #C8C5D1;
   background-color: #E7E5EB;
@@ -409,7 +498,7 @@ color: var(--text-grey);
 .contacts-form__delete-btn {
   width: 27px;
   border: 1px solid #C8C5D1;
-  background: #E7E5EB url("/crm-frontend/img/remove_add-contact.svg") no-repeat center;
+  background: #E7E5EB url("img/remove_add-contact.svg") no-repeat center;
 }
 
 .modal__more-contact-wrp {
@@ -434,14 +523,31 @@ color: var(--text-grey);
   display: inline-block;
   width: 16px;
   height: 16px;
-  background: transparent url(/crm-frontend/img/btn_spin.svg) no-repeat center;
+  background: transparent url(img/btn_spin.svg) no-repeat center;
   animation: 1s spin infinite ease-in-out;
 }
 
 .modal__outline-btn {
-  align-self: center;
+  margin: 0 auto;
   background-color: transparent;
   text-decoration: underline;
   color: var(--black-color);
   border: none;
+}
+
+.alert {
+  margin: 0.5rem 0;
+}
+
+p.alert {
+  color: red;
+  font-size: 10px;
+}
+
+input.alert {
+border: 1px solid red;
+}
+
+.disabled {
+  filter: brightness(150%)
 }
